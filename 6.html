@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>ZXC Star Effect</title>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      height: 100%;
+    }
+    body {
+      background-image: url('https://tse1.mm.bing.net/th/id/OIP.hjFjrxcaj3NC-otfkao2OQHaEO?cb=iwp1&rs=1&pid=ImgDetMain');
+      background-size: cover;
+      background-position: center;
+      font-family: Arial, sans-serif;
+    }
+    #coin {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 120px;
+      height: auto;
+      cursor: pointer;
+      z-index: 2000;
+    }
+    #counter {
+      position: absolute;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      color: yellow;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px black;
+      z-index: 3000;
+    }
+    .spawned-img, .spawned-msg, .patrol-img-global, .bomb, .explosion, .missile, .nuke, .nuke-explosion, .giant-nuke, .giant-explosion {
+      position: absolute;
+      z-index: 999;
+    }
+    .spawned-msg {
+      color: white;
+      font-size: 20px;
+      background: url('https://tse2.mm.bing.net/th/id/OIP.rb-4xWUkH24RQnpZhEOq2gHaJg?cb=iwp1&rs=1&pid=ImgDetMain');
+      background-size: cover;
+      padding: 10px;
+      border-radius: 12px;
+      font-weight: bold;
+      text-shadow: 1px 1px 3px black;
+    }
+    .patrol-img-global {
+      width: 120px;
+      height: auto;
+      animation: grow 4s infinite;
+    }
+    .patrol-text {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 32px;
+      color: red;
+      font-weight: bold;
+      text-shadow: 2px 2px 5px black;
+      z-index: 1000;
+      animation: blink 1s infinite;
+    }
+    .bomb {
+      width: 100px;
+    }
+    .explosion {
+      width: 150px;
+      animation: explode 1s ease-out forwards;
+    }
+    .missile {
+      width: 60px;
+      animation: fall 3s linear infinite;
+    }
+    .giant-nuke {
+      width: 600px;
+      left: 50%;
+      top: -600px;
+      transform: translateX(-50%);
+      animation: giantFall 5s linear forwards;
+      z-index: 4000;
+    }
+    .giant-explosion {
+      width: 800px;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5000;
+      animation: explode 3s ease-out forwards;
+    }
+    @keyframes blink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    @keyframes explode {
+      0% { transform: scale(0.5) translate(-50%, -50%); opacity: 1; }
+      100% { transform: scale(2) translate(-50%, -50%); opacity: 0; }
+    }
+    @keyframes grow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.5); }
+    }
+    @keyframes fall {
+      0% { top: -100px; opacity: 1; }
+      100% { top: 100vh; opacity: 0; }
+    }
+    @keyframes giantFall {
+      0% { top: -600px; }
+      100% { top: 40%; }
+    }
+  </style>
+</head>
+<body>
+  <audio id="siren" src="https://www.soundjay.com/transportation/sounds/police-siren-01.mp3" preload="auto"></audio>
+  <div id="counter">Бла1 монет: 0</div>
+  <img id="coin" src="https://i.ytimg.com/vi/Bbl8KTAQkKA/maxresdefault.jpg" onclick="addCoin()">
+  <script>
+    let coinCount = 0;
+    function addCoin() {
+      coinCount++;
+      document.getElementById('counter').innerText = 'Бла1 монет: ' + coinCount;
+    }
+
+    function kukali() {
+      const siren = document.getElementById('siren');
+      siren.volume = 1.0;
+      siren.play();
+      for (let i = 0; i < 80; i++) {
+        const img = document.createElement('img');
+        img.src = 'https://printonic.ru/uploads/images/2016/02/22/img_56caddaa63854.jpg';
+        img.className = 'spawned-img';
+        img.style.left = Math.random() * window.innerWidth + 'px';
+        img.style.top = Math.random() * window.innerHeight + 'px';
+        img.style.width = '100px';
+        img.style.animation = 'grow 2s infinite';
+        document.body.appendChild(img);
+
+        const msg = document.createElement('div');
+        msg.textContent = 'ZXC TI PAKOINIK ZXC';
+        msg.className = 'spawned-msg';
+        msg.style.left = Math.random() * window.innerWidth + 'px';
+        msg.style.top = Math.random() * window.innerHeight + 'px';
+        document.body.appendChild(msg);
+
+        const patrolGlobal = document.createElement('img');
+        patrolGlobal.src = 'https://tse1.mm.bing.net/th/id/OIP.44RS-u5fvZI3eDwFeULZDgHaEk?cb=iwp1&rs=1&pid=ImgDetMain';
+        patrolGlobal.className = 'patrol-img-global';
+        patrolGlobal.style.left = Math.random() * window.innerWidth + 'px';
+        patrolGlobal.style.top = Math.random() * window.innerHeight + 'px';
+        document.body.appendChild(patrolGlobal);
+      }
+      const patrolText = document.createElement('div');
+      patrolText.textContent = 'ЇДЕ ПАТРУЛЬ ПРЯМО ЗА ТОБОЮ';
+      patrolText.className = 'patrol-text';
+      document.body.appendChild(patrolText);
+    }
+
+    function cebula() {
+      for (let i = 0; i < 30; i++) {
+        const bomb = document.createElement('img');
+        bomb.src = 'https://fakty.com.ua/wp-content/uploads/2023/04/25/photo1682417346.jpeg';
+        bomb.className = 'bomb';
+        bomb.style.left = Math.random() * window.innerWidth + 'px';
+        bomb.style.top = Math.random() * window.innerHeight + 'px';
+        document.body.appendChild(bomb);
+
+        setTimeout(() => {
+          const explosion = document.createElement('img');
+          explosion.src = 'https://tse4.mm.bing.net/th/id/OIP.5DMkH5Zobyl3CoKHvWzywgHaEK?cb=iwp1&rs=1&pid=ImgDetMain';
+          explosion.className = 'explosion';
+          explosion.style.left = bomb.style.left;
+          explosion.style.top = bomb.style.top;
+          document.body.appendChild(explosion);
+
+          setTimeout(() => {
+            explosion.remove();
+            bomb.remove();
+          }, 500);
+        }, 300);
+      }
+
+      for (let i = 0; i < 100; i++) {
+        const missile = document.createElement('img');
+        missile.src = 'https://cdn-icons-png.flaticon.com/512/121/121928.png';
+        missile.className = 'missile';
+        missile.style.left = Math.random() * window.innerWidth + 'px';
+        missile.style.top = '-100px';
+        document.body.appendChild(missile);
+        setTimeout(() => missile.remove(), 3000);
+      }
+    }
+
+    function launchGiantNuke() {
+      const giant = document.createElement('img');
+      giant.src = 'https://th.bing.com/th/id/R.d4428b04f56c0023209036007cf2a4cd?rik=AXNmKiZJ%2bmUtog&pid=ImgRaw&r=0';
+      giant.className = 'giant-nuke';
+      document.body.appendChild(giant);
+
+      setTimeout(() => {
+        giant.remove();
+        const boom = document.createElement('img');
+        boom.src = 'https://th.bing.com/th/id/R.c8ca49f6e0d260f5225757b243d3d1a1?rik=aAbqctrFz8bp%2fQ&pid=ImgRaw&r=0';
+        boom.className = 'giant-explosion';
+        document.body.appendChild(boom);
+
+        setTimeout(() => boom.remove(), 4000);
+      }, 5000);
+    }
+
+    setTimeout(() => {
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => {
+          kukali();
+          cebula();
+        }, i * 200);
+      }
+      setTimeout(launchGiantNuke, 5000);
+    }, 10000);
+  </script>
+</body>
+</html>
